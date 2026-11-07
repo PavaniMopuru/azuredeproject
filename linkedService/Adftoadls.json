@@ -1,0 +1,10 @@
+{
+	"name": "Adftoadls",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://spotiftproject.dfs.core.windows.net/"
+		}
+	}
+}
