@@ -1,0 +1,15 @@
+{
+	"name": "azurespotifynew",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Disabled",
+			"editable": true
+		}
+	},
+	"location": "indiasouthcentral",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "a7e55e4d-6c88-4b8c-98a4-f16eed5cd69e",
+		"tenantId": "de9a280d-8b2d-44f9-b366-a86c0633fe6f"
+	}
+}
