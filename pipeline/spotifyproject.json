@@ -28,7 +28,12 @@
 					},
 					"dataset": {
 						"referenceName": "Json",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "bronze",
+							"folder": "cdc",
+							"file": "cdc.json"
+						}
 					},
 					"firstRowOnly": false
 				}
@@ -101,7 +106,7 @@
 							"folder": "bronze",
 							"file": "users",
 							"filename": {
-								"value": "@pipeline().parameters.table",
+								"value": "@concat(pipeline().parameters.table,'_',variables('current'))",
 								"type": "Expression"
 							}
 						}
