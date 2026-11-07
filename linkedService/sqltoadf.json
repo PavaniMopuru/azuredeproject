@@ -1,0 +1,14 @@
+{
+	"name": "sqltoadf",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"server": "1azureproject.database.windows.net",
+			"database": "spotifydb",
+			"encrypt": "mandatory",
+			"trustServerCertificate": false,
+			"authenticationType": "SystemAssignedManagedIdentity"
+		}
+	}
+}
