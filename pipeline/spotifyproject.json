@@ -176,7 +176,7 @@
 										"filename": "@concat(pipeline().parameters.table,'_',variables('current'))"
 									}
 								},
-								"enableLogging": true,
+								"enableLogging": false,
 								"storeSettings": {
 									"type": "AzureBlobFSReadSettings",
 									"recursive": true,
@@ -268,7 +268,7 @@
 									"parameters": {
 										"container": "bronze",
 										"folder": "cdc",
-										"file": "empty.json"
+										"file": "cdc.json"
 									}
 								}
 							],
