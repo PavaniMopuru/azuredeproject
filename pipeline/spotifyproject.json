@@ -7,7 +7,7 @@
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "Lookup_Table_Metadata",
+						"activity": "LookupMetaData",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('Lookup_Table_Metadata').output.value",
+						"value": "@activity('LookupMetaData').output.value",
 						"type": "Expression"
 					},
 					"isSequential": true,
@@ -114,21 +114,7 @@
 							"inputs": [
 								{
 									"referenceName": "AzureSql",
-									"type": "DatasetReference",
-									"parameters": {
-										"schema": {
-											"value": "@pipeline().parameters.schema",
-											"type": "Expression"
-										},
-										"table": {
-											"value": "@pipeline().parameters.table",
-											"type": "Expression"
-										},
-										"cdc_col": {
-											"value": "@pipeline().parameters.cdc_col",
-											"type": "Expression"
-										}
-									}
+									"type": "DatasetReference"
 								}
 							],
 							"outputs": [
@@ -291,21 +277,7 @@
 										"inputs": [
 											{
 												"referenceName": "AzureSql",
-												"type": "DatasetReference",
-												"parameters": {
-													"schema": {
-														"value": "@pipeline().parameters.schema",
-														"type": "Expression"
-													},
-													"table": {
-														"value": "@pipeline().parameters.table",
-														"type": "Expression"
-													},
-													"cdc_col": {
-														"value": "@pipeline().parameters.cdc_col",
-														"type": "Expression"
-													}
-												}
+												"type": "DatasetReference"
 											}
 										],
 										"outputs": [
@@ -327,7 +299,7 @@
 				}
 			},
 			{
-				"name": "Lookup_Table_Metadata",
+				"name": "LookupMetaData",
 				"type": "Lookup",
 				"dependsOn": [],
 				"policy": {
@@ -341,27 +313,16 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "SELECT\n    TABLE_SCHEMA AS SchemaName,\n    TABLE_NAME AS TableName\nFROM INFORMATION_SCHEMA.TABLES\nWHERE TABLE_TYPE = 'BASE TABLE'\nORDER BY TABLE_SCHEMA, TABLE_NAME;",
+						"sqlReaderQuery": {
+							"value": "SELECT\n    TABLE_SCHEMA AS SchemaName,\n    TABLE_NAME AS TableName\nFROM INFORMATION_SCHEMA.TABLES\nWHERE TABLE_TYPE = 'BASE TABLE'\nORDER BY TABLE_SCHEMA, TABLE_NAME;",
+							"type": "Expression"
+						},
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
 					"dataset": {
 						"referenceName": "AzureSql",
-						"type": "DatasetReference",
-						"parameters": {
-							"schema": {
-								"value": "@pipeline().parameters.schema",
-								"type": "Expression"
-							},
-							"table": {
-								"value": "@pipeline().parameters.table",
-								"type": "Expression"
-							},
-							"cdc_col": {
-								"value": "@pipeline().parameters.cdc_col",
-								"type": "Expression"
-							}
-						}
+						"type": "DatasetReference"
 					},
 					"firstRowOnly": false
 				}
