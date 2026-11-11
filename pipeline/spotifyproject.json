@@ -86,7 +86,7 @@
 								"source": {
 									"type": "AzureSqlSource",
 									"sqlReaderQuery": {
-										"value": "SELECT *\nFROM @{item().SchemaName}.@{item().TableName}\nWHERE @{item().CDCColumn}\n>\n'@{activity('Lookupcdc').output.value[0].cdc}'",
+										"value": "SELECT *\nFROM @{item().schema}.@{item().table}\nWHERE @{item().cdc_col}\n>\n'@{activity('Lookupcdc').output.value[0].cdc}'",
 										"type": "Expression"
 									},
 									"queryTimeout": "02:00:00",
@@ -114,7 +114,21 @@
 							"inputs": [
 								{
 									"referenceName": "AzureSql",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"schema": {
+											"value": "@pipeline().parameters.schema",
+											"type": "Expression"
+										},
+										"table": {
+											"value": "@pipeline().parameters.table",
+											"type": "Expression"
+										},
+										"cdc_col": {
+											"value": "@pipeline().parameters.cdc_col",
+											"type": "Expression"
+										}
+									}
 								}
 							],
 							"outputs": [
@@ -277,7 +291,21 @@
 										"inputs": [
 											{
 												"referenceName": "AzureSql",
-												"type": "DatasetReference"
+												"type": "DatasetReference",
+												"parameters": {
+													"schema": {
+														"value": "@pipeline().parameters.schema",
+														"type": "Expression"
+													},
+													"table": {
+														"value": "@pipeline().parameters.table",
+														"type": "Expression"
+													},
+													"cdc_col": {
+														"value": "@pipeline().parameters.cdc_col",
+														"type": "Expression"
+													}
+												}
 											}
 										],
 										"outputs": [
@@ -319,23 +347,26 @@
 					},
 					"dataset": {
 						"referenceName": "AzureSql",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"schema": {
+								"value": "@pipeline().parameters.schema",
+								"type": "Expression"
+							},
+							"table": {
+								"value": "@pipeline().parameters.table",
+								"type": "Expression"
+							},
+							"cdc_col": {
+								"value": "@pipeline().parameters.cdc_col",
+								"type": "Expression"
+							}
+						}
 					},
 					"firstRowOnly": false
 				}
 			}
 		],
-		"parameters": {
-			"schema": {
-				"type": "string"
-			},
-			"table": {
-				"type": "string"
-			},
-			"cdc_col": {
-				"type": "string"
-			}
-		},
 		"variables": {
 			"current": {
 				"type": "String"
